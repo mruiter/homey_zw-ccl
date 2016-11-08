@@ -51,7 +51,7 @@
 		if (report['Sensor Type'] === "[#TYPE#]" &&
 		report.hasOwnProperty("Properties1") &&
 		report.Properties1.hasOwnProperty("Scale") &&
-		report.Properties1.Scale === "[#TYPESCALE#]")
+		report.Properties1.Scale === [#TYPESCALE#])
 			return report['Sensor Value (Parsed)'];
 
 		return null;
