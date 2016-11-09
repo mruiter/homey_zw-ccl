@@ -38,8 +38,10 @@
 	'command_get': 'SWITCH_MULTILEVEL_GET',
 	'command_set': 'SWITCH_MULTILEVEL_SET',
 	'command_set_parser': value => {
+		if (value >= 1) value = 0.99;
+		
 		return {
-			'Value': value
+			'Value': value * 100
 		};
 	},
 	'command_report': 'SWITCH_MULTILEVEL_REPORT',
@@ -78,8 +80,10 @@
 	'command_get': 'SWITCH_MULTILEVEL_GET',
 	'command_set': 'SWITCH_MULTILEVEL_SET',
 	'command_set_parser': value => {
+		if (value >= 1) value = 0.99;
+		
 		return {
-			'Value': value,
+			'Value': value * 100,
 			'Dimming Duration': 255
 		};
 	},
@@ -116,8 +120,10 @@
 	'command_get': 'SWITCH_MULTILEVEL_GET',
 	'command_set': 'SWITCH_MULTILEVEL_SET',
 	'command_set_parser': value => {
+		if (value >= 1) value = 0.99;
+		
 		return {
-			'Value': value,
+			'Value': value * 100,
 			'Dimming Duration': 255
 		};
 	},
