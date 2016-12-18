@@ -92,9 +92,10 @@
 }
 
 /*
- * =========== GENERAL CODE: VERSION 4 if it NOT supports kVar/kVarh===========
+ * =========== GENERAL CODE: VERSION 4 (NO kVar/kVarh Support)===========
  * To see if your module has kVar and kVarh support,
  * you need to use the "GET SUPPORTED" displayed below
+ * or look for "'Scale bit 2': false" in DEBUG REPORT
  * [#CAPABILITY#] = the used capability
  * [#TYPERATE#] = a supported rate type, displayed below
  * Rate = Full name
@@ -127,16 +128,17 @@
 }
 
 /*
- * =========== GENERAL CODE: VERSION 4 if it supports kVar/kVarh===========
+ * =========== GENERAL CODE: VERSION 4 (kVar/kVarh Support)===========
  * To see if your module has kVar and kVarh support,
  * you need to use the "GET SUPPORTED" displayed below
+ * or look for "'Scale bit 2': true" in DEBUG REPORT
  * [#CAPABILITY#] = the used capability
  * [#TYPERATE#] = a supported rate type, displayed below
  * Rate = Full name
  * [#TYPESCALE-1#] = a supported scale type, displayed below
  * [#TYPESCALE-2#] = a supported scale type, displayed below
  * [#TYPESCALE-3#] = a supported scale type, displayed below
- * Scale = Just the Number (0 - 7)
+ * Scale = Just the Number
 */
 
 '[#CAPABILITY#]': {
@@ -210,6 +212,8 @@
 }
 
 /*
+
+ ============ VERSION 1 - 3 =============
  * SUPPORTED SENSOR TYPES (*) AND SCALES:
  * SCALES FROM VERSION 1 = **---
  * SCALES FROM VERSION 2 = ***--
@@ -236,7 +240,7 @@
  **--- 2 - US Gallon
  ***-- 3 - Pulse Count
  
- 
+ ============= VERSION 4 ==============
  
  * RATE TYPES (*):
  * !! ONLY FROM VERSION 4 !!
