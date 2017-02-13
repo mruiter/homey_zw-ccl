@@ -92,11 +92,15 @@
 }
 
 /*
- * =========== GENERAL CODE: VERSION 4 [#TYPESCALE-10#] = 1-6 ===========
+ * =========== GENERAL CODE: VERSION 4 (NO kVar/kVarh Support)===========
+ * To see if your module has kVar and kVarh support,
+ * you need to use the "GET SUPPORTED" displayed below
+ * or look for "'Scale bit 2': false" in DEBUG REPORT
  * [#CAPABILITY#] = the used capability
  * [#TYPERATE#] = a supported rate type, displayed below
  * Rate = Full name
- * [#TYPESCALE-10#] = a supported scale type, displayed below
+ * [#TYPESCALE-1#] = a supported scale type, displayed below
+ * [#TYPESCALE-2#] = a supported scale type, displayed below
  * Scale = Just the Number (0 - 7)
 */
 
@@ -107,7 +111,7 @@
 		return {
 			'Properties1': {
 				'Rate Type': '[#TYPERATE#]',
-				'Scale': [#TYPESCALE10#]
+				'Scale': [#TYPESCALE-2#]
 			},
 			'Scale 2': 0
 		};
@@ -116,7 +120,7 @@
 	'command_report_parser': report => {
 		if (report.hasOwnProperty('Properties2') &&
 		report.Properties2.hasOwnProperty('Scale bits 10') &&
-		report.Properties2['Scale bits 10'] === [#TYPESCALE-10#])
+		report.Properties2['Scale bits 10'] === [#TYPESCALE-2#])
 			return report['Meter Value (Parsed)'];
 				
 		return null;
@@ -124,12 +128,17 @@
 }
 
 /*
- * =========== GENERAL CODE: VERSION 4 [#TYPESCALE-2#] = 0-1 ===========
+ * =========== GENERAL CODE: VERSION 4 (kVar/kVarh Support)===========
+ * To see if your module has kVar and kVarh support,
+ * you need to use the "GET SUPPORTED" displayed below
+ * or look for "'Scale bit 2': true" in DEBUG REPORT
  * [#CAPABILITY#] = the used capability
  * [#TYPERATE#] = a supported rate type, displayed below
  * Rate = Full name
+ * [#TYPESCALE-1#] = a supported scale type, displayed below
  * [#TYPESCALE-2#] = a supported scale type, displayed below
- * Scale 2 = Just the Number (0 - 7)
+ * [#TYPESCALE-3#] = a supported scale type, displayed below
+ * Scale = Just the Number
 */
 
 '[#CAPABILITY#]': {
@@ -139,19 +148,18 @@
 		return {
 			'Properties1': {
 				'Rate Type': '[#TYPERATE#]',
-				'Scale': 7
+				'Scale': [#TYPESCALE-1#]
 			},
-			'Scale 2': [#TYPESCALE2#]
+			'Scale 2': [#TYPESCALE-2#]
 		};
 	},
 	'command_report': 'METER_REPORT',
 	'command_report_parser': report => {
-		if (report.hasOwnProperty('Properties1') &&
-		report.Properties1.hasOwnProperty('Scale bits 2') &&
-		report.Properties1['Scale bits 2'] === [#TYPESCALE-2#])
-		report.hasOwnProperty('Properties2') &&
+		if (report.hasOwnProperty('Properties2') &&
 		report.Properties2.hasOwnProperty('Scale bits 10') &&
-		report.Properties2['Scale bits 10'] === 7)
+		report.Properties2['Scale bits 10'] === [#TYPESCALE-1#] &&
+		report.hasOwnProperty('Scale 2') &&
+		report['Scale 2'] === [#TYPESCALE-3#])
 			return report['Meter Value (Parsed)'];
 				
 		return null;
@@ -204,11 +212,12 @@
 }
 
 /*
+
+ ============ VERSION 1 - 3 =============
  * SUPPORTED SENSOR TYPES (*) AND SCALES:
  * SCALES FROM VERSION 1 = **---
  * SCALES FROM VERSION 2 = ***--
  * SCALES FROM VERSION 3 = ****-
- * SCALES FROM VERSION 4 = *****
  * --------------------------------------
  
  * Electric meter
@@ -219,8 +228,6 @@
  ****- 4 - Voltage (V)
  ****- 5 - Amperage (A)
  ****- 6 - Power Factor
- ***** [#TYPESCALE-2#]: 0, [#TYPESCALE-10#]: 7 - kiloVolt-Ampere reactive (kVar)
- ***** [#TYPESCALE-2#]: 1, [#TYPESCALE-10#]: 7 - kiloVolt-Ampere reactive/hour (kVarh)
  
  * Gas meter
  **--- 0 - Cubic Meters (M³)
@@ -233,6 +240,8 @@
  **--- 2 - US Gallon
  ***-- 3 - Pulse Count
  
+ ============= VERSION 4 ==============
+ 
  * RATE TYPES (*):
  * !! ONLY FROM VERSION 4 !!
  * Import
@@ -240,4 +249,43 @@
 
  * Export
  *    = Produced
+ 
+ * SCALES FROM VERSION 4
+  
+ - kilo Watt hours (kWh)
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 0
+   [#TYPESCALE-3#]: 0
+ - kiloVolt-Ampere hour (kVAh)
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 1
+   [#TYPESCALE-3#]: 16
+ - Wattage (W)
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 2
+   [#TYPESCALE-3#]: 32
+ - Pulse Count
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 3
+   [#TYPESCALE-3#]: 48
+ - Voltage (V)
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 4
+   [#TYPESCALE-3#]: 64
+ - Amperage (A)
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 5
+   [#TYPESCALE-3#]: 80
+ - Power Factor
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 6
+   [#TYPESCALE-3#]: 96
+ - kiloVolt-Ampere reactive (kVar)
+   [#TYPESCALE-1#]: 0
+   [#TYPESCALE-2#]: 7
+   [#TYPESCALE-3#]: 112
+ - kiloVolt-Ampere reactive/hour (kVarh)
+   [#TYPESCALE-1#]: 1
+   [#TYPESCALE-2#]: 7
+   [#TYPESCALE-3#]: 113
 */

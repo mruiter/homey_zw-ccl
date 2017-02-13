@@ -40,7 +40,7 @@
 	'command_set_parser': value => {
 		return {
 			'Switch Value': (value > 0) ? 'on/enable' : 'off/disable',
-			'Dimming Duration': 255
+			'Dimming Duration': 'Factory default'
 		};
 	},
 	'command_report': 'SWITCH_BINARY_REPORT',
